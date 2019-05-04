@@ -1,0 +1,14 @@
+[
+    {
+    "username":"shitailong",
+    "nickname":"史泰龙",
+    "password":"958d51602bbfbd18b2a084ba848a827c29952bfef170c936419b0922994c0589",
+    "avatar":"defaultAvatar.jpg"
+    },
+    {
+    "username":"shiwaxinge",
+    "nickname":"施瓦辛格",
+    "password":"b822bb93905a9bd8b3a0c08168c427696436cf8bf37ed4ab8ebf41a07642ed1c",
+    "avatar":"defaultAvatar.jpg"
+    }
+]
