@@ -70,8 +70,25 @@ app.post("/login",(req,res)=>{
 //查看当前登陆用户的信息
 app.get("/me",(req,res)=>{
 	//如果登陆了
-	if(req.session.login){  
-		res.json({'username':'xiaoming','nickname':'小明','avatar':'dfaf.jpg'})
+	if(req.session.login){ 
+		//遍历小数据库，看看有没有匹配项
+		fs.readFile("./db/users.txt",(err,content)=>{
+			//转为真正的数组，toString()表示把二进制变为文字
+			var arr = JSON.parse(content.toString())
+			//遍历这个数组
+			for(var i = 0;i<arr.length;i++){
+				//找到这个人了
+				if(arr[i].username==req.session.username){
+					 
+					res.json({
+						'username':arr[i].username,
+						'nickname':arr[i].nickname,
+						'avatar':arr[i].avatar,
+						'role':arr[i].role
+					})
+				}
+			}
+		}) 
 	}else{ //如果没有登陆，返回401和-4
 		res.status(401)
 		res.json({"err" : -4}); 
