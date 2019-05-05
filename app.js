@@ -5,7 +5,11 @@ const formidable = require('formidable')
 const fs = require('fs')
 const crypto = require('crypto')
 
-//下面是npm 社区的固定写法
+
+//开静态，使图片有路径,把当前文件夹提供http服务
+app.use(express.static("./"))
+//下面是为了实现session,是npm 社区的固定写法
+app.set('trust proxy', 1)
 app.use(session({
 	secret: 'keyboard cat',
 	resave: false,
