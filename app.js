@@ -17,20 +17,7 @@ app.use(session({
 	
   }))
 
-// app.get("/api",(req,res)=>{
-// 	res.json({"a" : 10});
-// });
-// app.get("/mingan",(req,res)=>{
-// 	res.status(401)
-// 	res.json({"err" : -4});
-// });
 
-//临时测试用的ciji接口
-// app.get("/ciji",(req,res)=>{
-// 	//为了测试，我们下发session
-// 	req.session.login = true;
-// 	res.send("好了")
-// })
 app.post("/login",(req,res)=>{
 	//用formidable 识别用户提交的用户名和密码
 	var form = new formidable.IncomingForm();
@@ -42,7 +29,7 @@ app.post("/login",(req,res)=>{
 		const password = fields.password;
 		//加密一下password
 		const passwordsha256 = crypto.createHash("sha256").update(password + '' + password).digest('hex')
-		console.log(passwordsha256)
+		// console.log(passwordsha256)
 		// res.json({'result':fields})
 		//遍历小数据库，看看有没有匹配项
 		fs.readFile("./db/users.txt",(err,content)=>{
@@ -66,10 +53,7 @@ app.post("/login",(req,res)=>{
 
 	})
 })
-// app.get("/chakan",(req,res)=>{
-// 	//为了测试，我们下发session
-// 	res.json({"login":req.session.login})
-// })
+
 
 //查看当前登陆用户的信息
 app.get("/me",(req,res)=>{
@@ -98,5 +82,18 @@ app.get("/me",(req,res)=>{
 		res.json({"err" : -4}); 
 	}
 });
+
+//上传图片，post请求
+app.post("/uploadavatar",(req,res)=>{
+	
+	const form = new formidable.IncomingForm()
+	//设置上传目录
+	form.uploadDir = "./uploads";
+	//保留扩展名
+	form.keepExtensions = true;
+	form.parse(req,(err,fields)=>{
+		res.json({'result':1})
+	})
+})
 
 app.listen(3000);
